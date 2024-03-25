@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body class="bg-blue-100" onload="secGen()">
+
+    <h1 class="text-3xl font-bold mb-5 text-gray-600">CAPTCHA CONCEPT</h1>
+    
+<form onsubmit="success()" id="form" >
+
+    <label >
+        <p class="font-bold text-3xl">Name</p>
+        <input type="text" placeholder="Enter your name" id="username" class="py-2 bg-white border border-gray-300 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    </label>
+
+<div class="py-5 ">
+    <p class="text-2xl"> Enter the following code into the input : <span id="captcha" class="font-bold text-2xl mr-5"></span> </p>
+    <input type="text" placeholder="Enter captcha key" id="code" class="py-2 bg-gray-50 border border-gray-300 text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+</div>
+    <input type="submit" placeholder="Post" class="text-xl bg-blue-500 text-white hover:bg-red-500 py-2 px-4 rounded">
+
+</form>
+
+<h2 id="message" class="text-3xl font-bold"></h2>
+
+<script>
+
+let security = document.getElementById('captcha')
+
+let key = 0
+
+const secGen = ()=>{
+
+    const min = 10000;
+    const max = 99999;
+    key = Math.floor(Math.random() * (max - min + 1)) + min;
+    security.innerHTML=`${key}`
+    return(key)
+}
+
+let form = document.getElementById('form')
+
+
+form.addEventListener("submit", (e)=>{
+    e.preventDefault()
+
+    let message = document.getElementById('message')
+    let username = document.getElementById('username').value
+    let code = parseInt(document.getElementById('code').value)
+    
+    if(code == key){
+        message.style.color="green"
+        message.innerHTML= `Welcome ${username}` 
+    }
+    else{
+        message.style.color="red"
+        message.innerHTML=`Error! please try again.`
+    }
+    
+})
+
+
+
+</script>
+</body>
+</html>
